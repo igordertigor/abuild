@@ -15,11 +15,12 @@ def main():
 
 
 @app.command()
-def build(component: str | None, config: Path = Path('.abuild.yaml')):
-    cfg = Config.from_file(config)
+def build(config: str = 'abuild.yaml'):
+    cfg = Config.from_file(Path(config))
     for component in cfg.components:
         with state_update(component.path, cfg.state_file) as need_rebuild:
             if need_rebuild:
+                print(f'Building component: {component.display_name}')
                 build_component(component)
 
 

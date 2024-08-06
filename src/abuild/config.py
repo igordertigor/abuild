@@ -4,14 +4,29 @@ from pydantic import BaseModel
 
 
 class BuildStep(BaseModel):
-    name: str | None
+    name: str | None = None
     cmd: str
     break_on_error: bool = True
 
+    @property
+    def display_name(self) -> str:
+        if self.name:
+            return self.name
+        else:
+            return self.cmd
+
 
 class Component(BaseModel):
+    name: str | None = None
     path: Path
     steps: list[BuildStep]
+
+    @property
+    def display_name(self) -> str:
+        if self.name:
+            return self.name
+        else:
+            return self.path
 
 
 class Config(BaseModel):

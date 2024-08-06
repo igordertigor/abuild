@@ -26,6 +26,9 @@ def all_files(root: Path, skipper: FileSkipperInterface) -> Iterable[Path]:
                 dirname,
                 skippers.get(parent_dir, skipper).update(ignore_file),
             )
+        else:
+            parent_dir = str(Path(dirname).parent)
+            skippers.setdefault(dirname, skippers.get(parent_dir, skipper))
 
         for filename in filenames:
             if not skippers[dirname].skip(Path(filename)):
