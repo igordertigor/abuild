@@ -30,6 +30,7 @@ def build(config: str = 'abuild.yaml'):
 
 @app.command()
 def parse():
+    """Parse local directory and print a suggested configuration"""
     config = Config(components=[])
     for subdir in sorted(Path('.').iterdir()):
         if subdir.is_dir():
