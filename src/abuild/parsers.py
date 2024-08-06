@@ -16,12 +16,8 @@ class ParserInterface(ABC):
 def chain_of_command(
     project_root: Path, *parsers: ParserInterface
 ) -> list[BuildStep]:
-    return list(
-        filter(
-            lambda s: s is not None,
-            (parser.parse(project_root) for parser in parsers),
-        )
-    )
+    all_build_steps = (parser.parse(project_root) for parser in parsers)
+    return [s for s in all_build_steps if s is not None]  # type: ignore
 
 
 class ToxParser(ParserInterface):
@@ -92,6 +88,8 @@ class DockerParser(ParserInterface):
             else:
                 return BuildStep(cmd='docker buildx build -F Dockerfile .')
         elif len(dockerfiles) == 1:
-            return BuildStep(cmd=f'docker buildx build -F {dockerfiles[0].name} .')
+            return BuildStep(
+                cmd=f'docker buildx build -F {dockerfiles[0].name} .'
+            )
 
         return None

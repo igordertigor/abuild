@@ -26,7 +26,7 @@ class Component(BaseModel):
         if self.name:
             return self.name
         else:
-            return self.path
+            return str(self.path)
 
 
 class Config(BaseModel):

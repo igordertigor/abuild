@@ -17,7 +17,7 @@ def hash_directory(
 
 
 def all_files(root: Path, skipper: FileSkipperInterface) -> Iterable[Path]:
-    skippers = {}
+    skippers: dict[str, FileSkipperInterface] = {}
     for dirname, _, filenames in os.walk(str(root)):
         ignore_file = Path(dirname) / '.abuildignore'
         if ignore_file.exists():

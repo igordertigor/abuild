@@ -31,6 +31,15 @@ You can install `abuild` from pypi with `pip install abuild`.
 
 This example looks at a very simple monorepo with a python backend that gets build into a docker container and a javascript frontend that gets build with `npm run build`. There is also a tools directory that shouldn't be build:
   $ tree
+  .
+  |-- backend
+  |   |-- Dockerfile
+  |   `-- tox.ini
+  |-- frontend
+  |   `-- package.json
+  `-- tools
+  
+  3 directories, 3 files
 
 To set up `abuild` in a new monorepo, you can run
 

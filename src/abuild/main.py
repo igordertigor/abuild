@@ -42,7 +42,9 @@ def parse():
                 parsers.PackageJsonParser('build'),
             )
             if len(steps):
-                config.components.append(Component(path=str(subdir), steps=steps))
+                config.components.append(
+                    Component(path=str(subdir), steps=steps)
+                )
     buf = StringIO()
     yaml.dump(config.model_dump(mode='json', exclude_unset=True), buf)
     print(buf.getvalue())

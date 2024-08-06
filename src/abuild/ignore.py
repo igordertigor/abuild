@@ -24,8 +24,10 @@ class NeverSkip(FileSkipperInterface):
 
 EmptyList = cast(list[str], object())
 
+
 class GlobSkipper(FileSkipperInterface):
     patterns: list[str]
+
     def __init__(self, patterns: list[str] = EmptyList):
         if patterns is EmptyList:
             self.patterns = []
@@ -40,7 +42,9 @@ class GlobSkipper(FileSkipperInterface):
         return False
 
     def update(self, ignorefile: Path) -> 'GlobSkipper':
-        new_patterns = [line.strip('\n') for line in ignorefile.read_text().splitlines()]
+        new_patterns = [
+            line.strip('\n') for line in ignorefile.read_text().splitlines()
+        ]
         return GlobSkipper(self.patterns + new_patterns)
 
     def __repr__(self) -> str:

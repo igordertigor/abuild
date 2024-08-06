@@ -31,9 +31,9 @@ def describe_all_files():
         assert list(
             map(
                 str,
-                sorted(hashing.all_files(populated_dir, ignore.GlobSkipper()))
+                sorted(hashing.all_files(populated_dir, ignore.GlobSkipper())),
             )
         ) == [
             f'{str(populated_dir)}/.abuildignore',
-            f'{str(populated_dir)}/a_file.txt'
+            f'{str(populated_dir)}/a_file.txt',
         ]
