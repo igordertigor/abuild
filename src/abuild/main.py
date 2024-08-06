@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 import typer
 from pathlib import Path
-from .config import Config
+from io import StringIO
+import yaml
+from .config import Config, Component
 from .state import state_update
 from .build import build_component
+from . import parsers
 
 app = typer.Typer()
 
@@ -27,7 +30,22 @@ def build(config: str = 'abuild.yaml'):
 
 @app.command()
 def parse():
-    pass
+    config = Config(components=[])
+    for subdir in sorted(Path('.').iterdir()):
+        if subdir.is_dir():
+            steps = parsers.chain_of_command(
+                subdir,
+                parsers.ToxParser(),
+                parsers.PyProjectParser(),
+                parsers.DockerParser(),
+                parsers.PackageJsonParser('test'),
+                parsers.PackageJsonParser('build'),
+            )
+            if len(steps):
+                config.components.append(Component(path=str(subdir), steps=steps))
+    buf = StringIO()
+    yaml.dump(config.model_dump(mode='json', exclude_unset=True), buf)
+    print(buf.getvalue())
 
 
 if __name__ == '__main__':
