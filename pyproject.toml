@@ -19,6 +19,7 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools_scm]
 version_scheme = "post-release"
 tag_regex = "^(?P<prefix>v?)(?P<version>\\d+\\.\\d+\\.\\d+)"
+local_scheme = "no-local-version"
 
 [tool.blue]
 line_length = 79
