@@ -47,4 +47,3 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = "requirements.txt" }
-version = { file = "version.txt" }
