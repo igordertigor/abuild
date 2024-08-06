@@ -16,6 +16,7 @@ def main():
 
 @app.command()
 def build(config: str = 'abuild.yaml'):
+    """Build components listed in the config file"""
     cfg = Config.from_file(Path(config))
     for component in cfg.components:
         with state_update(component.path, cfg.state_file) as need_rebuild:
