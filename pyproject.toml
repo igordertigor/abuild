@@ -40,6 +40,18 @@ plugins = ["pydantic.mypy"]
 ignore_missing_imports = true
 follow_imports = "skip"
 
+[tool.semv.types]
+feat = "minor"
+fix = "patch"
+perf = "patch"
+chore = "valid"
+test = "valid"
+docs = "valid"
+ci = "valid"
+refactor = "valid"
+style = "valid"
+build = "valid"
+
 [tool.setuptools.package-data]
 "abuild" = ["py.typed"]
 
