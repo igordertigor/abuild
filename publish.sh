@@ -2,38 +2,35 @@
 
 set -xe
 
-BACKUP_SETUP=$(mktemp)
-NEW_SETUP=$(mktemp)
-
-cp setup.cfg $BACKUP_SETUP
-
 function cleanup() {
-  mv $BACKUP_SETUP setup.cfg
-  rm $NEW_SETUP
+  git reset --hard HEAD~1
+  git tag -d ${VERSION}
 }
 
-track cleanup ERR
 
-# bump version
-sed -r 's/version = ([0-9]+)/echo version = $((\1+1))"/e' setup.cfg > $NEW_SETUP
-mv $NEW_SETUP setup.cfg
-
-VERSION=$(awk '/version = [0-9]+/ { print $3 }' setup.cfg)
+VERSION=$(semv)
 
 SOURCEDIST=abuild-${VERSION}.tar.gz
 BINDIST=csvmodel-${VERSION}-py3-name-any.whl
 
-
+# Make sure the examples in the readme work
 cram README.md
 
+# Update README
+echo "### ${VERSION}" >> README.md
+echo "$(semv --changelog)" >> README.md
+
+git add README.md
+git commit -m "New Version"
+git tag $VERSION
+
+# If wthe release doesn't work somehow, we want to revert the automatic commit
+trap cleanup ERR
 
 python -m build
 
 twine check dist/$SOURCEDIST dist/$BINDIST
 twine upload --verbose dist/$SOURCEDIST dist/$BINDIST
 
-echo "****************************************************"
-echo "* Now commit setup.cfg and tag the commit as v${VERSION}"
-echo "****************************************************"
-
-rm $BACKUP_SETUP
+# If release was successful, push the corresponding data
+git push

@@ -59,3 +59,6 @@ To set up `abuild` in a new monorepo, you can run
 As you can see, `abuild` understood the basics of the repository and created the skeleton of a config file. Feel free to update the config file by hand. For example, you could add names for the steps by setting `components.[].steps.[].name`. You could also delete (or add) steps to fit your needs.
 
 To build your services with `abuild`, you simply run `abuild build` in your project root. `abuild` maintains a state file `.abuild_state.json` that tracks your build status. Currently, the state is not synchronized between machines (which can be a bit of a hindrance of CI). However, you can commit the `.abuild_state.json` to your revision control system.
+
+## Changelog
+
