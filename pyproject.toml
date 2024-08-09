@@ -42,6 +42,7 @@ follow_imports = "skip"
 
 [tool.semv.types]
 feat = "minor"
+feature = "minor"
 fix = "patch"
 perf = "patch"
 chore = "valid"
