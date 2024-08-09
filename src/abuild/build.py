@@ -14,7 +14,10 @@ def build_component(component: Component, tags: list[str]):
             print(f'Running step: {step.display_name}')
             run_build_step(step, cwd=component.path)
         else:
-            print(f'Not running step: {step.display_name} - tag {step.tag} was not selected')
+            print(
+                f'Not running step: {step.display_name}'
+                f' - tag {step.tag} was not selected'
+            )
 
 
 def run_build_step(step: BuildStep, cwd: Path):

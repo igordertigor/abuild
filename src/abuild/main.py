@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import typer
-from typing import Annotated
 from pathlib import Path
 from io import StringIO
 import yaml
@@ -16,13 +15,6 @@ app = typer.Typer()
 def main():
     # Set global options here
     pass
-
-
-def callback_allow_empty_list(value: list[str] | None) -> list[str]:
-    if value:
-        return value
-    else:
-        return [None]
 
 
 @app.command()

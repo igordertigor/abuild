@@ -13,3 +13,5 @@ def select_step(step_tag: str, requested_tags: list[str]) -> bool:
             return False
         else:
             return True
+
+    return False
