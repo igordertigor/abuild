@@ -7,7 +7,7 @@ class BuildStep(BaseModel):
     name: str | None = None
     cmd: str
     break_on_error: bool = True
-    tag: str | None = None
+    tag: str = ':notag:'
 
     @property
     def display_name(self) -> str:
