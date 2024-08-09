@@ -9,9 +9,10 @@ function cleanup() {
 
 
 VERSION=$(semv)
+PYVERSION="$(echo $VERSION | sed s/v//)"
 
-SOURCEDIST=abuild-${VERSION}.tar.gz
-BINDIST=csvmodel-${VERSION}-py3-name-any.whl
+SOURCEDIST=abuild-${PYVERSION}.tar.gz
+BINDIST=abuild-${PYVERSION}-py3-none-any.whl
 
 # Make sure the examples in the readme work
 cram README.md
