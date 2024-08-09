@@ -1,7 +1,8 @@
 from typing import Iterable, cast
+
 import fnmatch
-from pathlib import Path
 from hashlib import md5
+from pathlib import Path
 
 
 def hash_directory(path: Path) -> str:

@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
+
+import configparser
 import json
 import tomllib
-import configparser
 from pathlib import Path
 
 from .config import BuildStep

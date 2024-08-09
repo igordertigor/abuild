@@ -1,8 +1,10 @@
 import pytest
-from pathlib import Path
+
 import json
-from abuild.config import BuildStep
+from pathlib import Path
+
 from abuild import parsers
+from abuild.config import BuildStep
 
 
 def describe_tox_parser():

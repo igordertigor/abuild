@@ -1,12 +1,14 @@
 #!/usr/bin/env python
-import typer
-from pathlib import Path
 from io import StringIO
+from pathlib import Path
+
+import typer
 import yaml
-from .config import Config, Component
-from .state import state_update
-from .build import build_component
+
 from . import parsers
+from .build import build_component
+from .config import Component, Config
+from .state import state_update
 
 app = typer.Typer()
 

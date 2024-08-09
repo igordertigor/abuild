@@ -1,6 +1,7 @@
-from pathlib import Path
 import subprocess
-from .config import Component, BuildStep
+from pathlib import Path
+
+from .config import BuildStep, Component
 from .tags import select_step
 
 
