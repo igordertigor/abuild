@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import typer
+from typing import Annotated
 from pathlib import Path
 from io import StringIO
 import yaml
@@ -17,15 +18,30 @@ def main():
     pass
 
 
+def callback_allow_empty_list(value: list[str] | None) -> list[str]:
+    if value:
+        return value
+    else:
+        return [None]
+
+
 @app.command()
-def build(config: str = 'abuild.yaml'):
+def build(
+    tags: list[str] = typer.Option(
+        [],
+        '--tags',
+        '-t',
+        help='Only run certain tags',
+    ),
+    config: str = 'abuild.yaml',
+):
     """Build components listed in the config file"""
     cfg = Config.from_file(Path(config))
     for component in cfg.components:
         with state_update(component.path, cfg.state_file) as need_rebuild:
             if need_rebuild:
                 print(f'Building component: {component.display_name}')
-                build_component(component)
+                build_component(component, tags)
 
 
 @app.command()

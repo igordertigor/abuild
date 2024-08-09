@@ -7,10 +7,13 @@ class BuildError(Exception):
     pass
 
 
-def build_component(component: Component):
+def build_component(component: Component, tags: list[str]):
     for step in component.steps:
-        print(f'Running step: {step.display_name}')
-        run_build_step(step, cwd=component.path)
+        if len(tags) == 0 or step.tag in tags or (step.tag is None and 'untagged' in tags):
+            print(f'Running step: {step.display_name}')
+            run_build_step(step, cwd=component.path)
+        else:
+            print(f'Not running step: {step.display_name} - tag {step.tag} was not selected')
 
 
 def run_build_step(step: BuildStep, cwd: Path):
