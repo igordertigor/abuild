@@ -65,5 +65,5 @@ To build your services with `abuild`, you simply run `abuild build` in your proj
 ### v0.2.0
 # New features
 - general:
-  - Basic support for tags
-  - support for deselecting tags
+ - Basic support for tags
+ - support for deselecting tags

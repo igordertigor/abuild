@@ -151,3 +151,28 @@ def describe_docker_parser():
 
     def test_should_skip_if_no_dockerfile(tmp_path: Path):
         assert parsers.DockerParser().parse(tmp_path) is None
+
+
+def describe_makefile_parser():
+    def test_should_parse_makefile(tmp_path: Path):
+        (tmp_path / 'Makefile').write_text(
+            '\n'.join(
+                [
+                    'test:',
+                    '\t@echo "running tests"',
+                    '',
+                    'build:',
+                    '\t@echo "building project"',
+                ]
+            )
+        )
+        assert parsers.MakefileParser().parse(tmp_path) == BuildStep(
+            cmd='make'
+        )
+
+    def test_should_skip_if_no_makefile(tmp_path: Path):
+        assert parsers.MakefileParser().parse(tmp_path) is None
+
+    def test_should_not_parse_if_empty_makefile(tmp_path: Path):
+        (tmp_path / 'Makefile').write_text('')
+        assert parsers.MakefileParser().parse(tmp_path) is None

@@ -94,3 +94,15 @@ class DockerParser(ParserInterface):
             )
 
         return None
+
+
+class MakefileParser(ParserInterface):
+    def parse(self, project_root: Path) -> BuildStep | None:
+        makefile = project_root / 'Makefile'
+        if self._not_empty(makefile):
+            return BuildStep(cmd='make')
+        return None
+
+    @staticmethod
+    def _not_empty(file: Path) -> bool:
+        return file.exists() and file.stat().st_size > 0
