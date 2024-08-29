@@ -67,3 +67,6 @@ To build your services with `abuild`, you simply run `abuild build` in your proj
 - general:
  - Basic support for tags
  - support for deselecting tags
+### v0.3.0
+# New features
+- General: directory parsing supports makefiles
